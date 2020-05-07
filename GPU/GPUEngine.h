@@ -22,8 +22,8 @@
 #include "../SECP256k1.h"
 
 // Number of GROUP SIZE
-#define GPU_GRP_SIZE 32//64// Given the total time it takes to find a solution, not the speed of the search.
-#define NB_SPIN 16
+#define GPU_GRP_SIZE 64// Given the total time it takes to find a solution, not the speed of the search.
+#define NB_SPIN 4//16
 #define GPU_OUTPUT_CHECK 0// 1 Enable 0 Disable
 
 #define NB_JUMP 32
