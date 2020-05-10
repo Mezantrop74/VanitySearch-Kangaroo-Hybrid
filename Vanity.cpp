@@ -1176,8 +1176,8 @@ void VanitySearch::SolverGPU(TH_PARAM *ph) {
 	}
 	
 	int slp = pow2Wsqrt * 1000;
-	//slp *= 2;
-	slp = 1000 * 30;
+	slp *= 2;
+	//slp = 1000 * 30;
 	
 	printf("\n[+] Runing Comparator every: %d sec\n", slp / 1000);
 		
