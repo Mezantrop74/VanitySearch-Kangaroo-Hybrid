@@ -1001,8 +1001,8 @@ void VanitySearch::FindKeyGPU(TH_PARAM *ph) {
   // by Pollard ".. The best choice of m (mean jump size) is w^(1/2)/2 .."
   Int GPUmidJsize;
   GPUmidJsize.SetInt32(0);
-  GPUmidJsize = bnWsqrt;
-  GPUmidJsize.ShiftR(1);
+  GPUmidJsize.Set(&bnWsqrt);// GPUmidJsize = bnWsqrt;
+  GPUmidJsize.ShiftR(1);// Wsqrt / 2
   GPUJmaxofSp = (uint32_t)getJmaxofSp(GPUmidJsize, dS);  
   //GPUJmaxofSp = (uint32_t)(pow2W / 2) + 2;
   GPUJmaxofSp += (uint32_t)KangPower;// + Kangaroo Power
