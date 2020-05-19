@@ -614,7 +614,7 @@ void VanitySearch::getGPUStartingWKeys(int thId, int groupSize, int nbKangaroo, 
 }
 
 // ----------------------------------------------------------------------------
-
+/*
 void VanitySearch::CreateJumpTable(uint32_t Jmax, int pow2w) {
 	
 	int jumpBit = pow2w / 2 + 1;
@@ -678,6 +678,37 @@ void VanitySearch::CreateJumpTable(uint32_t Jmax, int pow2w) {
 	printf("Jump Avg distance: 2^%.2f \n", log2(distAvg));	
 	
 }
+*/
+
+void VanitySearch::CreateJumpTable() {
+	
+	printf("[i] Create Jump Table Size: %d \n", (int)NB_JUMP);
+	
+	// Create Jump Table
+	Point *Sp = new Point[NB_JUMP];// #define NB_JUMP 64// Do not change!
+	Int *dS = new Int[NB_JUMP];
+	Sp[0] = secp->G;
+	dS[0].SetInt32(1);
+	jumpPointx[0].Set(&Sp[0].x);
+	jumpPointy[0].Set(&Sp[0].y);
+	jumpDistance[0].SetInt32(1);
+	if (flag_verbose > 1) {
+		printf("Jump: 0 Distance: %s \n", jumpDistance[0].GetBase16().c_str());
+	}
+	for (int i = 1; i < NB_JUMP; i++) {
+		
+		dS[i].Add(&dS[i-1], &dS[i-1]);
+		Sp[i] = secp->DoubleAffine(Sp[i-1]);
+		jumpDistance[i].Set(&dS[i]);
+		jumpPointx[i].Set(&Sp[i].x);
+		jumpPointy[i].Set(&Sp[i].y);
+		
+		if (flag_verbose > 1) {
+			printf("Jump: %d Distance: %s \n", i, jumpDistance[i].GetBase16().c_str());
+		}
+	}
+}
+
 
 // ----------------------------------------------------------------------------
 
@@ -1000,15 +1031,21 @@ void VanitySearch::FindKeyGPU(TH_PARAM *ph) {
   // mean jumpsize
   // by Pollard ".. The best choice of m (mean jump size) is w^(1/2)/2 .."
   Int GPUmidJsize;
-  GPUmidJsize.SetInt32(0);
+  //GPUmidJsize.SetInt32(0);
   GPUmidJsize.Set(&bnWsqrt);// GPUmidJsize = bnWsqrt;
   GPUmidJsize.ShiftR(1);// Wsqrt / 2
   GPUJmaxofSp = (uint32_t)getJmaxofSp(GPUmidJsize, dS);  
-  //GPUJmaxofSp = (uint32_t)(pow2W / 2) + 2;
-  GPUJmaxofSp += (uint32_t)KangPower;// + Kangaroo Power
-  //printf("\nGPUJmaxofSp: %llu \n", GPUJmaxofSp);
   
-  CreateJumpTable(GPUJmaxofSp, pow2W);
+  printf("===========================================================================\n");
+  
+  GPUJmaxofSp += (uint32_t)KangPower;// + Kangaroo Power  
+  printf("[i] Used Jump Table: G,2G,4G,8G,16G,...,(2^NB_JUMP)G\n");
+  
+  CreateJumpTable();
+  
+  printf("===========================================================================\n");
+  
+  //CreateJumpTable(GPUJmaxofSp, pow2W);
   
   // Global init
   int thId = ph->threadId;
