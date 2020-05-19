@@ -143,7 +143,7 @@ __device__ void ComputeKeys(uint64_t *Tkangaroos, uint64_t *Wkangaroos, uint64_t
 		
 		// Get Tame dx
 		for(uint32_t g = 0; g < GPU_GRP_SIZE; g++) {
-			uint32_t pw1 = (px[g][0] % NB_JUMP);//uint32_t pw1 = (px[g][0] % hop_modulo);
+			uint32_t pw1 = (px[g][0] % hop_modulo);//uint32_t pw1 = (px[g][0] % NB_JUMP);
 			ModSub256(dx[g], px[g], Spx[pw1]);
 		}
 		
@@ -151,7 +151,7 @@ __device__ void ComputeKeys(uint64_t *Tkangaroos, uint64_t *Wkangaroos, uint64_t
 		
 		// Get Wild dx
 		for(uint32_t g = 0; g < GPU_GRP_SIZE; g++) {
-			uint32_t pw2 = (wpx[g][0] % NB_JUMP);//uint32_t pw2 = (wpx[g][0] % hop_modulo);
+			uint32_t pw2 = (wpx[g][0] % hop_modulo);//uint32_t pw2 = (wpx[g][0] % NB_JUMP);
 			ModSub256(wdx[g], wpx[g], Spx[pw2]);
 		}
 		
@@ -160,9 +160,9 @@ __device__ void ComputeKeys(uint64_t *Tkangaroos, uint64_t *Wkangaroos, uint64_t
 		for(uint32_t g = 0; g < GPU_GRP_SIZE; g++) { 
 			
 			// Get jump size Tame
-			pw1 = (px[g][0] % NB_JUMP);//pw1 = (px[g][0] % hop_modulo);
+			pw1 = (px[g][0] % hop_modulo);//pw1 = (px[g][0] % NB_JUMP);
 			// Get jump size Wild
-			pw2 = (wpx[g][0] % NB_JUMP);//pw2 = (wpx[g][0] % hop_modulo);
+			pw2 = (wpx[g][0] % hop_modulo);//pw2 = (wpx[g][0] % NB_JUMP);
 			
 			// Add Hops Distance Tame
 			//ModAdd256(tk[g], dS[pw1]);
