@@ -93,7 +93,8 @@ public:
   bool Comparator();
   void ReWriteFiles();
   bool SolverChmod();
-  void CreateJumpTable(uint32_t Jmax, int pow2w);
+  //void CreateJumpTable(uint32_t Jmax, int pow2w);
+  void CreateJumpTable();
   //bool TWSaveToDrive();
   //bool TWUpload();
     
