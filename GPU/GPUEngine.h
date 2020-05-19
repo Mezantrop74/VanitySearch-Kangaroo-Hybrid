@@ -26,7 +26,7 @@
 #define NB_SPIN 8//16
 #define GPU_OUTPUT_CHECK 0// 1 Enable 0 Disable
 
-#define NB_JUMP 32
+#define NB_JUMP 64// Do not change!
 
 #define ITEM_SIZE 72
 #define ITEM_SIZE32 (ITEM_SIZE/4)
