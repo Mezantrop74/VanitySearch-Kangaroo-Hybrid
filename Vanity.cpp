@@ -628,15 +628,15 @@ void VanitySearch::CreateJumpTable(uint32_t Jmax, int pow2w) {
 	
 	Int totalDist;
 	totalDist.SetInt32(0);
-	/* // Original code
-	for (int i = 0; i < NB_JUMP; i++) {
-		jumpDistance[i].Rand(jumpBit);
-		totalDist.Add(&jumpDistance[i]);
-		Point J = secp->ComputePublicKey(&jumpDistance[i]);
-		jumpPointx[i].Set(&J.x);
-		jumpPointy[i].Set(&J.y);		
-	}
-	*/
+	// Original code
+	//for (int i = 0; i < NB_JUMP; i++) {
+		//jumpDistance[i].Rand(jumpBit);
+		//totalDist.Add(&jumpDistance[i]);
+		//Point J = secp->ComputePublicKey(&jumpDistance[i]);
+		//jumpPointx[i].Set(&J.x);
+		//jumpPointy[i].Set(&J.y);		
+	//}
+	
 	// Add small jumps
 	int small_jump = NB_JUMP / 2;// #define NB_JUMP 32
 	Point *Sp = new Point[small_jump];
