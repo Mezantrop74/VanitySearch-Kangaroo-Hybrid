@@ -100,6 +100,10 @@ GPUEngine::GPUEngine(int nbThreadGroup, int nbThreadPerGroup, int gpuId, uint32_
   // Set fixed DP
   //fixedDP = 20;
   
+  if (hop_modulo > NB_JUMP) {
+	hop_modulo = (uint32_t)NB_JUMP;
+  }	
+  
   if (fixedDP > 0) {
 	pow2dp = fixedDP;
 	printf("GPUEngine: Fixed DPmodule = 2^%d \n", pow2dp);
